@@ -21,6 +21,7 @@ public class SetUpPasswordDialog extends Dialog implements View.OnClickListener{
     public EditText mAffirmET;
     private MyCallBack myCallBack;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         setContentView(R.layout.setup_password_dialog);
