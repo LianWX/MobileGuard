@@ -37,6 +37,7 @@ public class VersionUpdateUtils {
     private static final int MESSAGE_JSON_ERROR = 103;
     private static final int MESSAGE_SHOW_DIALOG = 104;
     private static final int MESSAGE_ENTERHOME = 105;
+    
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
