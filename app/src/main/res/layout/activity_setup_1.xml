@@ -93,6 +93,7 @@
         android:layout_weight="10"
         android:background="@color/purple"
         android:gravity="center">
+
         <include layout="@layout/setup_radiogroup"/>
     </LinearLayout>
 </LinearLayout>
