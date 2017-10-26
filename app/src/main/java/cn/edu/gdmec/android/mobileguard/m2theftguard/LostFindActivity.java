@@ -29,7 +29,7 @@ public class LostFindActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_lost_find);
         msharedPreferences=getSharedPreferences("config",MODE_PRIVATE);
         if (!isSetUp()){
-            startSetUpActivity();
+            startSetUp1Activity();
         }
        initView();
     }
@@ -73,7 +73,7 @@ public class LostFindActivity extends AppCompatActivity implements View.OnClickL
         });
 
     }
-    private void startSetUpActivity(){
+    private void startSetUp1Activity(){
         Intent intent=new Intent(LostFindActivity.this,Setup1Activity.class);
         startActivity(intent);
         finish();
@@ -82,7 +82,7 @@ public class LostFindActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_inter_setup_wizard:
-                startSetUpActivity();
+                startSetUp1Activity();
                 break;
             case R.id.imgv_leftbtn:
                 finish();
