@@ -32,6 +32,7 @@ public class BlackNumberDaoTest {
         context= InstrumentationRegistry.getTargetContext();
         dao=new BlackNumberDao(context);
     }
+
     @Test
     public void t1Add() throws Exception{
         Random random=new Random(8979);
