@@ -68,7 +68,7 @@ public class BlackNumberDaoTest {
         Log.i("TestBlackNumberDao",mode+"");
     }
     @Test
-    public void tsGetTotalNumber() throws Exception{
+    public void t5GetTotalNumber() throws Exception{
         BlackNumberDao dao=new BlackNumberDao(context);
         int total=dao.getTotalNumber();
         Log.i("TestBlackNumberDao","数据总条目："+total);
