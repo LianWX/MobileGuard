@@ -26,6 +26,7 @@ public abstract class BaseSetUpActivity extends AppCompatActivity{
         mGestureDetector.onTouchEvent(event);
         return super.onTouchEvent(event);
     }
+
     public void startActivityAndFinishSelf(Class<?> cls){
         Intent intent=new Intent(this,cls);
         startActivity(intent);
