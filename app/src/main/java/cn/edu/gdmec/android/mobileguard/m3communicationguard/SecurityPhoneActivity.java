@@ -63,6 +63,7 @@ public class SecurityPhoneActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+
     private void initView(){
         findViewById(R.id.rl_titlebar).setBackgroundColor(getResources().getColor(R.color.bright_purple));
         ImageView mLeftImgv=(ImageView) findViewById(R.id.imgv_leftbtn);
