@@ -43,6 +43,7 @@ public class ContactSelectActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_contact_select);
         initView();
     }
+
     private void initView(){
         ((TextView) findViewById(R.id.tv_title)).setText("选择联系人");
         ImageView mLeftImgv=(ImageView) findViewById(R.id.imgv_leftbtn);
