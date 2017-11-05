@@ -103,11 +103,10 @@ public class SecurityPhoneActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_phone);
-        getSupportActionBar().hide();//去除标题栏
-
+        getSupportActionBar().hide();
         initView();
         fillData();
     }
@@ -119,7 +118,6 @@ public class SecurityPhoneActivity extends AppCompatActivity implements View.OnC
                 finish();
                 break;
             case R.id.btn_addblacknumber:
-                //跳转至添加黑名单页面
                 startActivity(new Intent(this,AddBlackNumberActivity.class));
                 break;
         }
