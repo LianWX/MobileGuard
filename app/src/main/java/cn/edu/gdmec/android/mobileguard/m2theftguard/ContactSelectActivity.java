@@ -37,6 +37,7 @@ public class ContactSelectActivity extends AppCompatActivity implements View.OnC
             }
         };
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
