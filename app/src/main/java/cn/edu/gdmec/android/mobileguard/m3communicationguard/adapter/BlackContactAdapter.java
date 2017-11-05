@@ -40,6 +40,7 @@ public class BlackContactAdapter extends BaseAdapter{
         this.context=context;
         dao=new BlackNumberDao(context);
     }
+
     @Override
     public int getCount(){
         return contactInfos.size();
