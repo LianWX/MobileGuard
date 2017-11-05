@@ -22,6 +22,7 @@ public class BlackContactAdapter extends BaseAdapter{
     private Context context;
     private BlackNumberDao dao;
     private BlackConactCallBack callBack;
+
     class ViewHolder{
         TextView mNameTV;
         TextView mModeTV;
