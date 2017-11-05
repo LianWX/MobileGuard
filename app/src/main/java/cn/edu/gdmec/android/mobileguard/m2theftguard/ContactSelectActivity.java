@@ -69,6 +69,7 @@ public class ContactSelectActivity extends AppCompatActivity implements View.OnC
             }
         });
     }
+
     @Override
     public void onClick(View view){
         switch (view.getId()){
