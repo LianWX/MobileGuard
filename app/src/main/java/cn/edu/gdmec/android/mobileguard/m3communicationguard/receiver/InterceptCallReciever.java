@@ -90,7 +90,7 @@ public class InterceptCallReciever extends BroadcastReceiver {
         try {
             Class clazz = context.getClassLoader().loadClass("android.os.ServiceManager");
             Method method = clazz.getDeclaredMethod("getService",String.class);
-            IBinder iBinder = (IBinder) method.invoke(null,Context.TELECOM_SERVICE);
+            IBinder iBinder = (IBinder) method.invoke(null,Context.TELEPHONY_SERVICE);
             ITelephony itelephony = ITelephony.Stub.asInterface(iBinder);
             itelephony.endCall();
         } catch (Exception e) {
