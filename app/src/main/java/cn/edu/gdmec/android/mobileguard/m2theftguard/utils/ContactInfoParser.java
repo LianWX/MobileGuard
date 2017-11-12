@@ -54,26 +54,30 @@ public class ContactInfoParser {
         return infos;
     }
 
-    public static List<ContactInfo> getSimContacts(Context context) {
+   public static List<ContactInfo> getSimContacts(Context context) {
         Uri uri = Uri.parse("content://icc/adn");
         List<ContactInfo> infos = new ArrayList<ContactInfo>();
         Cursor mCursor = context.getContentResolver().query(uri, null, null, null, null);
         if (mCursor != null) {
             while (mCursor.moveToNext()){
-                ContactInfo info = new ContactInfo();
-                //取得联系人名字
-                int nameFieldColumnIndex = mCursor.getColumnIndex("name");
-                info.name = mCursor.getString(nameFieldColumnIndex);
-                //取得电话号码
-                int numberFieldColumnIndex = mCursor
-                        .getColumnIndex("number");
-                info.phone = mCursor.getString(numberFieldColumnIndex);
-                infos.add(info);
-            }
+            ContactInfo info = new ContactInfo();
+            //取得联系人名字
+            int nameFieldColumnIndex = mCursor.getColumnIndex("name");
+            info.name = mCursor.getString(nameFieldColumnIndex);
+            //取得电话号码
+            int numberFieldColumnIndex = mCursor
+                    .getColumnIndex("number");
+            info.phone = mCursor.getString(numberFieldColumnIndex);
+            infos.add(info);
         }
-        mCursor.close();
-        return infos;
     }
+    mCursor.close();
+    return infos;
 }
+}
+
+    //mCursor.close();
+    //return infos;
+
 
 

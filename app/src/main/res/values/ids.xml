@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="rb_first" type="id"/>
+    <item name="rb_second" type="id"/>
+    <item name="rb_third" type="id"/>
+    <item name="rb_four" type="id"/>
+    <item name="tv_phone" type="id"/>
+    <item name="tv_black_mode" type="id"/>
+    <item name="cb_blacknumber_sms" type="id"/>
+    <item name="cb_blacknumber_tel" type="id"/>
+    <item name="et_balcknumber" type="id"/>
+    <item name="et_blackname" type="id"/>
+    <item name="add_blacknum_btn" type="id"/>
+    <item name="add_fromcontact_btn" type="id"/>
+</resources>

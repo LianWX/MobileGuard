@@ -6,13 +6,14 @@ import android.content.Intent;
 
 import cn.edu.gdmec.android.mobileguard.App;
 
-/**
- * Created by admin on 2017/10/22.
- */
+public class BootCompleteReceiver extends BroadcastReceiver {
 
-public class BootCompleteReceiver extends BroadcastReceiver{
     @Override
-    public void onReceive(Context context, Intent intent){
+    public void onReceive(Context context, Intent intent) {
+        // TODO: This method is called when the BroadcastReceiver is receiving
+        // an Intent broadcast.
+        //throw new UnsupportedOperationException("Not yet implemented");
         ((App)(context.getApplicationContext())).correctSIM();
     }
 }
+
