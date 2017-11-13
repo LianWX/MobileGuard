@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 import cn.edu.gdmec.android.mobileguard.m4appmanager.entity.AppInfo;
 
 /**
- * Created by 郑竣鸿 on 2017/11/11.
+ * Created by admin on 2017/11/11.
  */
 
 public class EngineUtils {

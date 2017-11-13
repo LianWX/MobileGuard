@@ -19,7 +19,7 @@ import cn.edu.gdmec.android.mobileguard.m4appmanager.utils.DensityUtil;
 import cn.edu.gdmec.android.mobileguard.m4appmanager.utils.EngineUtils;
 
 /**
- * Created by 郑竣鸿 on 2017/11/11.
+ * Created by admin on 2017/11/11.
  */
 
 public class AppManagerAdapter extends BaseAdapter{

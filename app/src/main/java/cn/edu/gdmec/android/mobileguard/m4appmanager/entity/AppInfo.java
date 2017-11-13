@@ -3,7 +3,7 @@ package cn.edu.gdmec.android.mobileguard.m4appmanager.entity;
 import android.graphics.drawable.Drawable;
 
 /**
- * Created by 郑竣鸿 on 2017/11/11.
+ * Created by admin on 2017/11/11.
  */
 
 public class AppInfo {
