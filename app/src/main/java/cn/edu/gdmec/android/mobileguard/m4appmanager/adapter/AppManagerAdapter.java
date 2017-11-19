@@ -201,7 +201,10 @@ public class AppManagerAdapter extends BaseAdapter{
                     EngineUtils.uninstallApplication(context,appInfo);
                     break;
                 case R.id.tv_about_app:
-                    EngineUtils.AboutApp(context,appInfo);
+                    EngineUtils.showApplicationInfo(context,appInfo);
+                    break;
+                case R.id.tv_activity_app:
+                    EngineUtils.showApplicationActivities(context,appInfo);
                     break;
             }
         }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -15,6 +16,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -66,54 +68,39 @@ public class EngineUtils {
         }
     }
     //关于
-    public static void AboutApp(Context context,AppInfo appInfo){
-        try {
-            PackageManager pm = context.getPackageManager ();
-            PackageInfo packInfo = pm.getPackageInfo ( appInfo.packageName, 0 );
-            String version = packInfo.versionName;
-
-            long firstInstallTime = packInfo.firstInstallTime;
-
-            PackageInfo packinfo1 = pm.getPackageInfo ( appInfo.packageName, PackageManager.GET_SIGNATURES );
-            String certMsg = "";
-            Signature[] sigs = packinfo1.signatures;
-            CertificateFactory certFactory = CertificateFactory.getInstance ( "X.509" );
-
-            X509Certificate cert = (X509Certificate) certFactory.generateCertificate ( new ByteArrayInputStream( sigs[0].toByteArray () ) );
-
-            certMsg+= cert.getIssuerDN ().toString ();
-            certMsg+= cert.getSubjectDN ().toString ();
-            String date=null;
-            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy年MM月dd号 hh:mm:ss");
-            date=dateformat.format(firstInstallTime);
-
-            List<String> a=new ArrayList<String>(  );
-            PackageInfo packinfo2 = pm.getPackageInfo ( appInfo.packageName, PackageManager.GET_PERMISSIONS );
-            String[] permissions = packinfo2.requestedPermissions;
-
-            if (permissions != null){
-                for (String str : permissions){
-                    a.add ( str );
-                }
+    public static void showApplicationInfo(Context context,AppInfo appInfo){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(appInfo.appName);
+        builder.setMessage("Version:"+appInfo.versionName+"\n"+
+                "Install time:"+new Date(appInfo.firstInstallTime).toLocaleString()+"\n"+
+                appInfo.signature+"\n"+
+                "Permissions:"+"\n"+appInfo.requestedPermissions);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
             }
-            String s = Pattern.compile("\\b([\\w\\W])\\b").matcher(a.toString().substring(1,a.toString().length()-1)).replaceAll(".");
+        });
+        builder.show();
+    }
 
-            AlertDialog.Builder builder =new AlertDialog.Builder(context);
-            builder.setTitle(appInfo.appName);
-            builder.setMessage("version:"+version+"\n"+
-                    /*"Install time:"+"\n"+firstInstallTime+"\n"+*/
-                    "Install time:"+"\n"+date+"\n"+
-                    "Certificate issuer:"+certMsg+"\n"+
-                    "Permission:"+"\n"+s);
-            builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            builder.show();
-        }catch (Exception e) {
-            e.printStackTrace();
+    public static void showApplicationActivities(Context context, AppInfo appInfo){
+        PackageManager pm1 = context.getPackageManager();
+        StringBuffer sb = new StringBuffer();
+        ActivityInfo act[] = pm1.getPackageArchiveInfo(appInfo.apkPath, PackageManager.GET_ACTIVITIES).activities;
+        for (int i = 0;i<act.length;i++){
+            sb.append(act[i].toString());
+            sb.append("\n");
         }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(appInfo.appName);
+        builder.setMessage("Activities:"+"\n"+appInfo.activities);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 }
