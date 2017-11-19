@@ -28,6 +28,7 @@ public class AntiVirusDao {
         db.close();
         return desc;
     }
+
     public String getVirusDbVersion(){
         String dbVersion = null;
         // 打开病毒数据库
