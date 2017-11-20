@@ -85,13 +85,6 @@ public class EngineUtils {
     }
 
     public static void showApplicationActivities(Context context, AppInfo appInfo){
-        PackageManager pm1 = context.getPackageManager();
-        StringBuffer sb = new StringBuffer();
-        ActivityInfo act[] = pm1.getPackageArchiveInfo(appInfo.apkPath, PackageManager.GET_ACTIVITIES).activities;
-        for (int i = 0;i<act.length;i++){
-            sb.append(act[i].toString());
-            sb.append("\n");
-        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(appInfo.appName);
         builder.setMessage("Activities:"+"\n"+appInfo.activities);

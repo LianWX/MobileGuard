@@ -65,6 +65,14 @@ public class AppInfoParser {
                 }
                 appinfo.requestedPermissions = sb.toString();
             }
+            sb.delete(0,sb.length());
+            if(packInfo.activities !=null){
+                for(ActivityInfo activityInfo:packInfo.activities){
+                    sb.append(activityInfo.name+"\n");
+                }
+                appinfo.activities=sb.toString();
+            }
+
 
             final Signature[] arrSignatures = packInfo.signatures;
             for (final Signature sig : arrSignatures) {
