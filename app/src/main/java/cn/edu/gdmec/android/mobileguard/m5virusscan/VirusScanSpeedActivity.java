@@ -90,6 +90,9 @@ public class VirusScanSpeedActivity extends AppCompatActivity implements View.On
         initView();
         scanVirus();
     }
+    /**
+     * 扫描病毒 使用线程做耗时任务
+     * */
     private void scanVirus(){
         flag=true;
         isStop=false;
@@ -108,6 +111,7 @@ public class VirusScanSpeedActivity extends AppCompatActivity implements View.On
                         return;
                     }
                     String apkpath=info.applicationInfo.sourceDir;
+                    // 检查获取这个文件的 md5特征码
                     String md5info= MD5Utils.getFileMd5(apkpath);
                     System.out.println(apkpath);
                     System.out.println(md5info);
@@ -174,14 +178,19 @@ public class VirusScanSpeedActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.btn_canclescan:
                 if (process==total & process>0){
+                    // 扫描已完成
                     finish();
                 }else if (process>0 & process<total & isStop==false){
                     mScanningIcon.clearAnimation();
+                    // 取消扫描
                     flag=false;
+                    // 更换背景图片
                     mCancleBtn.setBackgroundResource(R.drawable.restart_scan_btn);
                 }else if (isStop){
                     startAnim();
+                    // 重新扫描
                     scanVirus();
+                    // 更换背景图片
                     mCancleBtn.setBackgroundResource(R.drawable.cancel_scan_btn_selector);
                 }
                 break;

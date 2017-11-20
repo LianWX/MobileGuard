@@ -9,12 +9,18 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 public class AntiVirusDao {
+    /**
+     * 检查某个md5是否是病毒
+     * @param md5
+     * @return null 代表扫描安全
+     */
     private static Context context;
     private static String dbname;
     public AntiVirusDao(Context context){
         this.context=context;
         dbname="/data/data/"+context.getPackageName()+"/files/antivirus.db";
     }
+    //使用apk文件的md5值匹配病毒数据库
     public String checkVirus(String md5){
         String desc=null;
         SQLiteDatabase db=SQLiteDatabase.openDatabase(
@@ -28,7 +34,7 @@ public class AntiVirusDao {
         db.close();
         return desc;
     }
-
+    //获取病毒数据版本
     public String getVirusDbVersion(){
         String dbVersion = null;
         // 打开病毒数据库

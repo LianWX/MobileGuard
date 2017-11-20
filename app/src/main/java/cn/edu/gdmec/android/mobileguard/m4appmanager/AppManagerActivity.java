@@ -78,7 +78,10 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
             };
         }.start();
     }
-
+    /***
+     * 接收应用程序卸载的广播
+     * @author admin
+     */
     private class UninstallRececiver extends BroadcastReceiver {
 
         @Override
@@ -126,12 +129,12 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
                 break;
         }
     }
-
+    /**拿到手机和SD卡剩余内存*/
     private void getMemoryFromPhone() {
         long avail_sd = Environment.getExternalStorageDirectory()
                 .getFreeSpace();
         long avail_rom = Environment.getDataDirectory().getFreeSpace();
-
+        //格式化内存
         String str_avail_sd = Formatter.formatFileSize(this,avail_sd);
         String str_avail_rom = Formatter.formatFileSize(this,avail_rom);
         mPhoneMemoryTV.setText("剩余手机内存：" + str_avail_rom);
@@ -146,7 +149,9 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
                     new Thread(){
                         public void run(){
                             AppInfo mappInfo = (AppInfo)adapter.getItem(i);
+                            //记住当前条目的状态
                             boolean flag = mappInfo.isSelected;
+                            //先将集合中所有条目的AppInfo变为未选中状态
                             for (AppInfo appInfo : userAppInfos){
                                 appInfo.isSelected = false;
                             }
@@ -154,6 +159,7 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
                                 appInfo.isSelected = false;
                             }
                             if (mappInfo != null){
+                                //如果已经选中，则变为未选中
                                 if (flag){
                                     mappInfo.isSelected = false;
                                 }else{
