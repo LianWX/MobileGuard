@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Method;
+import java.text.Format;
 import java.util.Random;
 
 import cn.edu.gdmec.android.mobileguard.R;
@@ -47,12 +48,12 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
                     long memory=(long) msg.obj;
                     formatMemory(memory);
                     if (memory==cacheMemory){
-                        
+
                         animation.stop();
                         mCleanCacheFL.setVisibility(View.GONE);
                         mFinishCleanFL.setVisibility(View.VISIBLE);
-                        mSizeTV.setText("成功清理:"+
-                                Formatter.formatFileSize(CleanCacheActivity.this,cacheMemory));
+                        mSizeTV.setText("成功清理: "+
+                        Formatter.formatFileSize(CleanCacheActivity.this,cacheMemory));
                     }
 
 
