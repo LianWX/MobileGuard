@@ -33,7 +33,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
     private PackageManager pm;
     private FrameLayout mCleanCacheFL;
 
-    
+
     private FrameLayout mFinishCleanFL;
 
     private TextView mSizeTV;
@@ -50,7 +50,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
                         animation.stop();
                         mCleanCacheFL.setVisibility(View.GONE);
                         mFinishCleanFL.setVisibility(View.VISIBLE);
-                        mSizeTV.setText("成功清理： "+
+                        mSizeTV.setText("成功清理:"+
                                 Formatter.formatFileSize(CleanCacheActivity.this,cacheMemory));
                     }
 
