@@ -23,15 +23,18 @@ import cn.edu.gdmec.android.mobileguard.m2theftguard.utils.MD5Utils;
 import cn.edu.gdmec.android.mobileguard.m3communicationguard.SecurityPhoneActivity;
 import cn.edu.gdmec.android.mobileguard.m4appmanager.AppManagerActivity;
 import cn.edu.gdmec.android.mobileguard.m5virusscan.VirusScanActivity;
+import cn.edu.gdmec.android.mobileguard.m6cleancache.CacheClearListActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
     private GridView gv_home;
     private long mExitTime;
-
+    /** 存储手机防盗密码的sp */
 
     private SharedPreferences msharedPreferences;
+    /** 设备管理员 */
     private DevicePolicyManager policyManager;
+    /** 申请权限 */
     private ComponentName componentName;
     ;
 
@@ -68,6 +71,9 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case 3:
                         startActivity(VirusScanActivity.class);
+                        break;
+                    case 4:
+                        startActivity(CacheClearListActivity.class);
                         break;
 
 
@@ -151,7 +157,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void confirm() {
                 if (TextUtils.isEmpty(mInPswdDialog.getPassword())){
-                    Toast.makeText(HomeActivity.this,"密码不能为空!", 0).show();
+                    Toast.makeText(HomeActivity.this,"密码不能为空!", Toast.LENGTH_LONG).show();
                 }else if (password.equals(MD5Utils.encode(mInPswdDialog
                         .getPassword()))){
                     //进入防盗主界面
@@ -161,7 +167,7 @@ public class HomeActivity extends AppCompatActivity {
                 }else {
                     //对话框消失，弹出
                     mInPswdDialog.dismiss();
-                    Toast.makeText(HomeActivity.this,"密码有误,请重新输入!", 0).show();
+                    Toast.makeText(HomeActivity.this,"密码有误,请重新输入!", Toast.LENGTH_LONG).show();
                 }
             }
 
