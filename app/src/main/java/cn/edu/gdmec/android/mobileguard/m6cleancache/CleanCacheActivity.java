@@ -52,7 +52,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
                         animation.stop();
                         mCleanCacheFL.setVisibility(View.GONE);
                         mFinishCleanFL.setVisibility(View.VISIBLE);
-                        mSizeTV.setText("成功清理："+
+                        mSizeTV.setText("成功清理"+
                         Formatter.formatFileSize(CleanCacheActivity.this,cacheMemory));
                         
                     }
