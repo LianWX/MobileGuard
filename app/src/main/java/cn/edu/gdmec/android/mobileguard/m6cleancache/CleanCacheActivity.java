@@ -36,6 +36,8 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
 
     private TextView mSizeTV;
 
+    
+
     private Handler mHandler = new Handler(){
         public void handleMessage(Message msg) {
             switch (msg.what){
