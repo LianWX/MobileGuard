@@ -53,7 +53,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
 
 
 
-                    
+
                     break;
             }
         };
