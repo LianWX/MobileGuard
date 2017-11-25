@@ -54,6 +54,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
                         mFinishCleanFL.setVisibility(View.VISIBLE);
                         mSizeTV.setText("成功清理: "+
                         Formatter.formatFileSize(CleanCacheActivity.this,cacheMemory));
+                        
                     }
 
 
