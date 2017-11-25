@@ -32,11 +32,13 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
 
     private PackageManager pm;
     private FrameLayout mCleanCacheFL;
+
+    
     private FrameLayout mFinishCleanFL;
 
     private TextView mSizeTV;
 
-    
+
 
     private Handler mHandler = new Handler(){
         public void handleMessage(Message msg) {
