@@ -47,6 +47,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
                     long memory=(long) msg.obj;
                     formatMemory(memory);
                     if (memory==cacheMemory){
+                        
                         animation.stop();
                         mCleanCacheFL.setVisibility(View.GONE);
                         mFinishCleanFL.setVisibility(View.VISIBLE);
