@@ -25,6 +25,7 @@ import cn.edu.gdmec.android.mobileguard.m4appmanager.AppManagerActivity;
 import cn.edu.gdmec.android.mobileguard.m5virusscan.VirusScanActivity;
 import cn.edu.gdmec.android.mobileguard.m6cleancache.CacheClearListActivity;
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.TrafficMonitoringActivity;
+import cn.edu.gdmec.android.mobileguard.m9advancedtools.AdvancedToolsActivity;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -57,10 +58,13 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.print(i);
                 switch (i) {
                     case 0:
+                        // 点击手机防盗
                         if (isSetUpPassword()) {
+                            // 弹出输入密码对话框
 
                             showInterPswdDialog();
                         } else {
+                            // 弹出设置密码对话框
                             showSetUpPswDialog();
                         }
                         break;
@@ -78,6 +82,9 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case 6:
                         startActivity(TrafficMonitoringActivity.class);
+                    case 7: // 高级工具
+                        startActivity(AdvancedToolsActivity.class);
+                        break;
 
 
                 //    case 1:
@@ -89,10 +96,15 @@ public class HomeActivity extends AppCompatActivity {
             }
          } );
 
+
+        // 1.获取设备管理员
         policyManager=(DevicePolicyManager) getSystemService(DEVICE_POLICY_SERVICE);
+        //本行代码需要 "手机防盗模块"完成后才能启用
         componentName=new ComponentName(this, MyDeviceAdminReceiver.class);
+        // 3.判断,如果没有权限则申请权限
         boolean active=policyManager.isAdminActive(componentName);
         if (!active){
+            //没有管理员的权限，则获取管理员的权限
             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
             intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,"获取超级管理员权限，用于远程锁屏和清除数据");
