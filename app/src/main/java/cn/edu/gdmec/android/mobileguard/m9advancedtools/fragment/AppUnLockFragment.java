@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.gdmec.android.mobileguard.App;
 import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.utils.AppInfoParser;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.adapter.AppLockAdapter;
@@ -32,10 +33,10 @@ public class AppUnLockFragment extends Fragment {
     List<AppInfo> unlockApps = new ArrayList<AppInfo> ();
     private AppLockAdapter adapter;
     private AppLockDao dao;
-    private Uri uri = Uri.parse("content://cn.edu.gdmec.android.mobileguard.applock");
+    private Uri uri = Uri.parse(App.APPLOCK_CONTENT_URI);
     private List<AppInfo> appInfos;
     private Handler mhandler = new Handler(){
-        public void handleMessage(Message msg) {
+        public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case 100:
                     unlockApps.clear();
@@ -103,8 +104,8 @@ public class AppUnLockFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                                    final int position, long id) {
-                if(unlockApps.get(position).packageName.equals("cn.edu.gdmec.android.mobileguard")){
+                                    final int i, long id) {
+                if(unlockApps.get(i).packageName.equals("cn.edu.gdmec.android.mobileguard")){
                     return;
                 }
                 //给应用加锁
@@ -124,8 +125,8 @@ public class AppUnLockFragment extends Fragment {
                             @Override
                             public void run() {
                                 //程序锁信息被加入到数据库了
-                                dao.insert(unlockApps.get(position).packageName);
-                                unlockApps.remove(position);
+                                dao.insert(unlockApps.get(i).packageName);
+                                unlockApps.remove(i);
                                 adapter.notifyDataSetChanged();//通知界面更新
                             }
                         });

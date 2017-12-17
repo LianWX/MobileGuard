@@ -1,5 +1,6 @@
 package cn.edu.gdmec.android.mobileguard.m9advancedtools.db.dao;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
@@ -8,12 +9,13 @@ import android.text.TextUtils;
 
 public class NumBelongtoDao {
 
-    public static String getLocation(String phonenumber) {
+    public static String getLocation(Context context,String phonenumber) {
 
         String location = phonenumber;
-
+        String dbname=context.getFilesDir()+"/address.db";
+        System.out.println(dbname);
         SQLiteDatabase db = SQLiteDatabase.openDatabase(
-                "/data/data/cn.edu.gdmec.android.mobileguard/files/address.db", null,
+                dbname, null,
                 SQLiteDatabase.OPEN_READONLY);
       /*String dbname = context.getFilesDir()+"/address.db";
         System.out.println (dbname);

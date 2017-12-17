@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,11 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import cn.edu.gdmec.android.mobileguard.App;
 import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m2theftguard.utils.MD5Utils;
 
 
-public class EnterPswActivity extends Activity implements OnClickListener{
+public class EnterPswActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView mAppIcon;
     private TextView mAppNameTV;
@@ -37,7 +39,7 @@ public class EnterPswActivity extends Activity implements OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView( R.layout.activity_enter_psw);
         sp = getSharedPreferences("config", MODE_PRIVATE);
         password = sp.getString("PhoneAntiTheftPWD", null);
@@ -48,7 +50,7 @@ public class EnterPswActivity extends Activity implements OnClickListener{
         try {
             mAppIcon.setImageDrawable(pm.getApplicationInfo(packagename, 0).loadIcon(pm));
             mAppNameTV.setText(pm.getApplicationInfo(packagename, 0).loadLabel(pm).toString());
-        } catch (NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -74,14 +76,14 @@ public class EnterPswActivity extends Activity implements OnClickListener{
                 if(TextUtils.isEmpty(inputpsw)){
                     startAnim();
                     //将0改为Toast.LENGTH_LONG
-                    Toast.makeText(this, "请输入密码！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "请输入密码！", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
                     if(!TextUtils.isEmpty(password)){
                         if(MD5Utils.encode(inputpsw).equals(password)){
                             //发送自定义的广播消息。
                             Intent intent = new Intent();
-                            intent.setAction("cn.itcast.mobliesafe.applock");
+                            intent.setAction(App.APPLOCK_ACTION);
                             intent.putExtra("packagename",packagename);
                             sendBroadcast(intent);
                             finish();

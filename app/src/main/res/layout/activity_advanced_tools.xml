@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".m9advancedtools.AdvancedToolsActivity">
+    tools:context="cn.edu.gdmec.mobileguard.m9advancedtools.AdvancedToolsActivity">
 
     <include layout="@layout/titlebar" />
 

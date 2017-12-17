@@ -33,32 +33,32 @@ public class AppLockAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Object getItem(int i) {
 
-        return appInfos.get(position);
+        return appInfos.get(i);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(int i) {
 
-        return position;
+        return i;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
-        if(convertView !=null && convertView instanceof RelativeLayout){
-            holder = (ViewHolder) convertView.getTag();
+        if(view !=null && view instanceof RelativeLayout){
+            holder = (ViewHolder) view.getTag();
         }else{
             holder = new ViewHolder();
-            convertView = View.inflate(context, R.layout.item_list_applock, null);
-            holder.mAppIconImgv = (ImageView) convertView.findViewById( R.id.imgv_appicon);
-            holder.mAppNameTV = (TextView) convertView.findViewById(R.id.tv_appname);
-            holder.mLockIcon = (ImageView) convertView.findViewById(R.id.imgv_lock);
-            convertView.setTag(holder);
+            view = View.inflate(context, R.layout.item_list_applock, null);
+            holder.mAppIconImgv = (ImageView) view.findViewById( R.id.imgv_appicon);
+            holder.mAppNameTV = (TextView) view.findViewById(R.id.tv_appname);
+            holder.mLockIcon = (ImageView) view.findViewById(R.id.imgv_lock);
+            view.setTag(holder);
         }
 
-        final AppInfo appInfo = appInfos.get(position);
+        final AppInfo appInfo = appInfos.get(i);
         holder.mAppIconImgv.setImageDrawable(appInfo.icon);
         holder.mAppNameTV.setText(appInfo.appName);
         if(appInfo.isLock){
@@ -68,7 +68,7 @@ public class AppLockAdapter extends BaseAdapter {
             //当前应用未加锁
             holder.mLockIcon.setBackgroundResource(R.drawable.appunlock_icon);
         }
-        return convertView;
+        return view;
     }
 
     static class ViewHolder{

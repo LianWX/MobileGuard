@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -21,7 +22,7 @@ import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.fragment.AppLockFragment;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.fragment.AppUnLockFragment;
 
-public class AppLockActivity extends FragmentActivity implements OnClickListener{
+public class AppLockActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ViewPager mAppViewPager;
     List<Fragment> mFragments = new ArrayList<Fragment>();
@@ -34,14 +35,14 @@ public class AppLockActivity extends FragmentActivity implements OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_app_lock);
         initView();
         initListener();
     }
 
     private void initListener() {
-        mAppViewPager.setOnPageChangeListener(new OnPageChangeListener() {
+        mAppViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int arg0) {
@@ -118,7 +119,7 @@ public class AppLockActivity extends FragmentActivity implements OnClickListener
         }
 
         @Override
-        public Fragment getItem(int arg0) {
+        public android.support.v4.app.Fragment getItem(int arg0) {
             return mFragments.get(arg0);
         }
 

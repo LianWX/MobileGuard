@@ -5,6 +5,7 @@ package cn.edu.gdmec.android.mobileguard.m9advancedtools;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,22 +25,22 @@ import java.io.InputStream;
 import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.db.dao.NumBelongtoDao;
 
-public class NumBelongtoActivity extends Activity implements OnClickListener{
+public class NumBelongtoActivity extends AppCompatActivity implements View.OnClickListener{
     /**归属地查询*/
     private EditText mNumET;
     private TextView mResultTV;
     private String dbName = "address.db";
-    private Handler mHandler = new Handler(){
-        public void handleMessage(android.os.Message msg) {
+    //private Handler mHandler = new Handler(){
+        //public void handleMessage(android.os.Message msg) {
 
-        };
-    };
+        //};
+   // };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_num_belongto);
         initView();
         copyDB(dbName);
@@ -95,7 +96,7 @@ public class NumBelongtoActivity extends Activity implements OnClickListener{
                         copyDB(dbName);
                     }
                     //查询数据库
-                    String location = NumBelongtoDao.getLocation(phonenumber);
+                    String location = NumBelongtoDao.getLocation(this,phonenumber);
                     mResultTV.setText("归属地： "+location);
                 }else{
                     //把0改为Toast.LENGTH_LONG
