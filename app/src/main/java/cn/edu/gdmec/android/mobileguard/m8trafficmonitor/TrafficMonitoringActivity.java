@@ -6,12 +6,16 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
@@ -31,8 +35,8 @@ import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.utils.SystemInfoUtils;
 
 
 
-public class TrafficMonitoringActivity extends Activity implements
-        OnClickListener {
+public class TrafficMonitoringActivity extends AppCompatActivity implements
+        View.OnClickListener {
     private SharedPreferences mSP;
     private Button mCorrectFlowBtn;
     private TextView mTotalTV;
@@ -43,10 +47,27 @@ public class TrafficMonitoringActivity extends Activity implements
     private TextView mRemindTV;
     private CorrectFlowReceiver receiver;
 
+    private TrafficMonitoringService trafficMonitoringService =null;
+    private boolean isBound;
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            isBound = true;
+            TrafficMonitoringService.MyBinder binder = (TrafficMonitoringService.MyBinder) iBinder;
+            trafficMonitoringService = binder.getService();
+            trafficMonitoringService.getUsedFlow();
+            System.out.println("Usedflow:"+trafficMonitoringService.getUsedFlow());
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+       // requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_traffic_monitor);
         mSP = getSharedPreferences("config", MODE_PRIVATE);
         boolean flag = mSP.getBoolean("isset_operator", false);
@@ -60,6 +81,7 @@ public class TrafficMonitoringActivity extends Activity implements
                         "cn.edu.gdmec.android.mobileguard.m8trafficmonitor.service.TrafficMonitoringService")) {
             startService(new Intent(this, TrafficMonitoringService.class));
         }
+        bindService(new Intent(this, TrafficMonitoringService.class),conn,BIND_AUTO_CREATE);
         initView();
         registReceiver();
         initData();
@@ -240,6 +262,7 @@ public class TrafficMonitoringActivity extends Activity implements
             receiver = null;
         }
         super.onDestroy();
+        unbindService(conn);
     }
 }
 

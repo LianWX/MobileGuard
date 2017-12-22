@@ -82,7 +82,7 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
      * 接收应用程序卸载的广播
      * @author admin
      */
-    private class UninstallRececiver extends BroadcastReceiver {
+    class UninstallRececiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {

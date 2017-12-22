@@ -42,7 +42,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
 
 
     private Handler mHandler = new Handler(){
-        public void handleMessage(Message msg) {
+        public void handleMessage(android.os.Message msg) {
             switch (msg.what){
                 case CLEANNING:
                     long memory=(long) msg.obj;

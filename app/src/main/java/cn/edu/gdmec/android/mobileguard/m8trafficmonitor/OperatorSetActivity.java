@@ -25,7 +25,7 @@ public class OperatorSetActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_operator_set);
         msp = getSharedPreferences("config", MODE_PRIVATE);
@@ -47,7 +47,7 @@ public class OperatorSetActivity extends Activity implements OnClickListener {
     }
     @Override
     public void onClick(View v) {
-        Editor edit = msp.edit();
+        SharedPreferences.Editor edit = msp.edit();
         switch (v.getId()) {
             case R.id.imgv_leftbtn:
                 edit.putBoolean("isset_operator", false);
