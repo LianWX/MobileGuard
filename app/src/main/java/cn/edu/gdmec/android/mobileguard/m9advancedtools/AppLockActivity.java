@@ -86,6 +86,7 @@ public class AppLockActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initView() {
+
         findViewById(R.id.rl_titlebar).setBackgroundColor(
                 getResources().getColor(R.color.bright_red));
         ImageView mLeftImgv = (ImageView) findViewById(R.id.imgv_leftbtn);
