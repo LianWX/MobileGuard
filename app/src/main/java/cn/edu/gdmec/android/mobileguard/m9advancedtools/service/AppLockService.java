@@ -45,14 +45,13 @@ public class AppLockService extends Service {
     public void onCreate() {
         // 创建AppLockDao实例
         dao = new AppLockDao(this);
-        observer = new MyObserver(new Handler());
-        getContentResolver().registerContentObserver(uri, true,
-                observer);
-        // 获取数据库中的所有包名
         packagenames = dao.findAll();
         if (packagenames.size()==0){
             return;
         }
+        observer = new MyObserver(new Handler());
+        getContentResolver().registerContentObserver(uri, true,
+                observer);
         receiver = new AppLockReceiver();
         IntentFilter filter = new IntentFilter(App.APPLOCK_ACTION);
         filter.addAction(Intent.ACTION_SCREEN_ON);

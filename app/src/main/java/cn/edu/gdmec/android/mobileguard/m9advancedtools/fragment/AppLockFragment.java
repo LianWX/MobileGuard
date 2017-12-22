@@ -25,13 +25,12 @@ import java.util.List;
 
 import cn.edu.gdmec.android.mobileguard.App;
 import cn.edu.gdmec.android.mobileguard.R;
+import cn.edu.gdmec.android.mobileguard.m4appmanager.entity.AppInfo;
+import cn.edu.gdmec.android.mobileguard.m4appmanager.utils.AppInfoParser;
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.utils.SystemInfoUtils;
-import cn.edu.gdmec.android.mobileguard.m9advancedtools.utils.AppInfoParser;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.adapter.AppLockAdapter;
 import cn.edu.gdmec.android.mobileguard.m9advancedtools.db.dao.AppLockDao;
-import cn.edu.gdmec.android.mobileguard.m9advancedtools.entity.AppInfo;
-
-
+import cn.edu.gdmec.android.mobileguard.m9advancedtools.service.AppLockService;
 
 public class AppLockFragment extends Fragment {
     private Context context;
@@ -39,7 +38,7 @@ public class AppLockFragment extends Fragment {
     private ListView mLockLV;
     private CheckBox mLockCB;
     private AppLockDao dao;
-    List<AppInfo> mLockApps = new ArrayList<AppInfo> ();
+    List<AppInfo> mLockApps = new ArrayList<AppInfo>();
     private AppLockAdapter adapter;
     private Uri uri = Uri.parse(App.APPLOCK_CONTENT_URI);
     private Handler mHandler = new Handler(){
@@ -60,17 +59,16 @@ public class AppLockFragment extends Fragment {
         };
     };
     private List<AppInfo> appInfos;
-
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate( R.layout.fragment_applock, null);
+        View view =  inflater.inflate(R.layout.fragment_app_lock, null);
         mLockTV = (TextView) view.findViewById(R.id.tv_lock);
         mLockLV = (ListView) view.findViewById(R.id.lv_lock);
         mLockCB = (CheckBox) view.findViewById(R.id.cb_applock_service);
@@ -103,12 +101,14 @@ public class AppLockFragment extends Fragment {
         appInfos = AppInfoParser.getAppInfos(getActivity());
         fillData();
         initListener();
-        getActivity().getContentResolver().registerContentObserver(uri, true, new ContentObserver (new Handler()) {
-            @Override
-            public void onChange(boolean selfChange) {
-                fillData();
-            }
-        });
+        getActivity().getContentResolver().registerContentObserver(uri, true,
+                new ContentObserver(new Handler()) {
+                    @Override
+                    public void onChange(boolean selfChange) {
+                        fillData();
+                    }
+                }
+        );
         super.onResume();
     }
 
@@ -132,14 +132,13 @@ public class AppLockFragment extends Fragment {
     }
 
     private void initListener() {
-        mLockLV.setOnItemClickListener(new AdapterView.OnItemClickListener () {
-
+        mLockLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view,
-                                    final int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 //播放一个动画效果
-                TranslateAnimation ta = new TranslateAnimation( Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1.0f,
-                        Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
+                TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0,
+                        Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0,
+                        Animation.RELATIVE_TO_SELF, 0);
                 ta.setDuration(300);
                 view.startAnimation(ta);
                 new Thread(){
