@@ -76,6 +76,7 @@ public class NumBelongtoActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.imgv_leftbtn:
                 finish();
