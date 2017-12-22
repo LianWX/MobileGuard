@@ -198,6 +198,15 @@ public class VersionUpdateUtils {
         listener(downloadId,targetFile);
     }
 
+    //下载完成的广播
+    private class DownloadFinishReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //下载完成的广播接收者
+            long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+        }
+    }
+
     private void listener(final long Id,final String filename) {
 
         // 注册广播监听系统的下载完成事件。

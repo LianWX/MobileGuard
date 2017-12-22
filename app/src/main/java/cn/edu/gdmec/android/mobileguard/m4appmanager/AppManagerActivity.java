@@ -11,7 +11,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.Formatter;
 import android.view.View;
-import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -32,9 +31,9 @@ public class AppManagerActivity extends AppCompatActivity implements View.OnClic
     //展示SD卡剩余内存textview
     private TextView mSDMemoryTV;
     private ListView mListView;
-    private List<AppInfo>appInfos;
-    private List<AppInfo>userAppInfos = new ArrayList<AppInfo>();
-    private List<AppInfo>systemAppInfos = new ArrayList<AppInfo>();
+    private List<AppInfo> appInfos;
+    private List<AppInfo> userAppInfos = new ArrayList<AppInfo>();
+    private List<AppInfo> systemAppInfos = new ArrayList<AppInfo>();
     private AppManagerAdapter adapter;
     private TextView mAppNumTV;
     //接收应用程序卸载成功的广播

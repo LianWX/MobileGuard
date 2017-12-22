@@ -199,7 +199,7 @@ public class AppManagerAdapter extends BaseAdapter{
                 case R.id.tv_uninstall_app:
                     //卸载,需要注册广播接受者
                     if (appInfo.packageName.equals(context.getPackageName())){
-                        Toast.makeText(context,"您没有权限卸载此应用！",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"您没有权限卸载此应用！",Toast.LENGTH_SHORT).show();
                         return;
                     }
                     EngineUtils.uninstallApplication(context,appInfo);

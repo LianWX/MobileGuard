@@ -1,7 +1,6 @@
 package cn.edu.gdmec.android.mobileguard.m9advancedtools.service;
 
 import android.app.ActivityManager;
-import android.app.ActivityManager.RunningTaskInfo;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;

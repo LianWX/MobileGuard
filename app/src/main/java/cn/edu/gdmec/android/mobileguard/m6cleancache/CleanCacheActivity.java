@@ -1,5 +1,6 @@
 package cn.edu.gdmec.android.mobileguard.m6cleancache;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Method;
-import java.text.Format;
 import java.util.Random;
 
 import cn.edu.gdmec.android.mobileguard.R;
@@ -24,7 +24,7 @@ import cn.edu.gdmec.android.mobileguard.R;
 public class CleanCacheActivity extends AppCompatActivity implements View.OnClickListener{
 
     protected static final int CLEANNING=100;
-    protected static final int CLEAN_FINISH=101;
+    protected static final int CLEAN_FINISH=10;
     private AnimationDrawable animation;
     private long cacheMemory;
 
@@ -42,7 +42,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
 
 
     private Handler mHandler = new Handler(){
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             switch (msg.what){
                 case CLEANNING:
                     long memory=(long) msg.obj;
@@ -130,6 +130,7 @@ public class CleanCacheActivity extends AppCompatActivity implements View.OnClic
         mMemoryTV.setText(memoryStr);
         mMemoryUnitTV.setText(memoryUnit);
         }
+    @SuppressLint("WrongViewCast")
     private void initView() {
         findViewById(R.id.rl_titlebar).setBackgroundColor(getResources().getColor(R.color.rose_red));
         ((TextView)findViewById(R.id.tv_title)).setText("缓存清理");

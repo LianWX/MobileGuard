@@ -1,5 +1,6 @@
 package cn.edu.gdmec.android.mobileguard.m6cleancache;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.IPackageStatsObserver;
 import android.content.pm.PackageInfo;
@@ -46,7 +47,9 @@ public class CacheClearListActivity extends AppCompatActivity implements View.On
     private Button mCacheBtn;
 
     private Thread thread;
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler (){
+        @SuppressLint("SetTextI18n")
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
@@ -86,6 +89,7 @@ public class CacheClearListActivity extends AppCompatActivity implements View.On
         initView();
     }
     //初始化控件
+    @SuppressLint("WrongViewCast")
     private void initView() {
         findViewById(R.id.rl_titlebar).setBackgroundColor(
                 getResources().getColor(R.color.rose_red));
@@ -147,7 +151,7 @@ public class CacheClearListActivity extends AppCompatActivity implements View.On
         public MyPackObserver(PackageInfo info){
             this.info=info;
         }
-
+        @Override
         public void onGetStatsCompleted(PackageStats pStats, boolean succeeded) throws RemoteException {
             long cachesize = pStats.cacheSize;
             if (cachesize >= 0){
@@ -170,7 +174,7 @@ public class CacheClearListActivity extends AppCompatActivity implements View.On
             case R.id.btn_cleanall:
                 if (cacheMemory>0){
                     //跳转至清理缓存的页面的Activity
-                    Intent intent = new Intent (this,CleanCacheActivity.class);
+                    Intent intent = new Intent(this,CleanCacheActivity.class);
                     //将要清理的垃圾大小传递至另一个页面
                     intent.putExtra("cacheMemory",cacheMemory);
                     startActivity(intent);
@@ -183,7 +187,7 @@ public class CacheClearListActivity extends AppCompatActivity implements View.On
     protected void onDestroy() {
         super.onDestroy();
         animation.stop();
-        if (thread!=null){
+        if (thread != null){
             thread.interrupt();
         }
     }

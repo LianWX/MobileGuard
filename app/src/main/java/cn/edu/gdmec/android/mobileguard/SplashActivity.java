@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        getSupportActionBar().hide();
+       // getSupportActionBar().hide();
         mVersion= MyUtils.getVersion(getApplicationContext());
         mTvVersion=(TextView)findViewById(R.id.tv_splash_version);
         mTvVersion.setText("版本号："+mVersion);
@@ -59,5 +59,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS),MY_PERMISSIONS_REQUEST_PACKAGE_STATS);
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

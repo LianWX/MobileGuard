@@ -5,20 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.net.Uri;
 import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.regex.Pattern;
 
 import cn.edu.gdmec.android.mobileguard.m4appmanager.entity.AppInfo;
 
@@ -85,8 +76,17 @@ public class EngineUtils {
     }
 
     public static void showApplicationActivities(Context context, AppInfo appInfo){
+        PackageManager pml = context.getPackageManager();
+        StringBuffer sb = new StringBuffer();
+        ActivityInfo act[] = pml.getPackageArchiveInfo(appInfo.apkPath,PackageManager.GET_ACTIVITIES).activities;
+        for (int i=0;i<act.length;i++){
+            sb.append(act[i].toString());
+            sb.append("\n");
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(appInfo.appName);
+        builder.setMessage(sb);
+        builder.setCancelable(false);
         builder.setMessage("Activities:"+"\n"+appInfo.activities);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

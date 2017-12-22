@@ -1,13 +1,10 @@
 package cn.edu.gdmec.android.mobileguard.m8trafficmonitor;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -16,7 +13,7 @@ import android.widget.TextView;
 import cn.edu.gdmec.android.mobileguard.R;
 
 
-public class OperatorSetActivity extends Activity implements OnClickListener {
+public class OperatorSetActivity extends AppCompatActivity implements View.OnClickListener {
     private Spinner mSelectSP;
     private String[] operators = { "中国移动", "中国联通", "中国电信" };
     private ArrayAdapter mSelectadapter;

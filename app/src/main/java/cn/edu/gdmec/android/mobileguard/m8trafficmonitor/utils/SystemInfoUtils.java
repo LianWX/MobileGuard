@@ -1,7 +1,6 @@
 package cn.edu.gdmec.android.mobileguard.m8trafficmonitor.utils;
 
 import android.app.ActivityManager;
-import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
 
 import java.util.List;

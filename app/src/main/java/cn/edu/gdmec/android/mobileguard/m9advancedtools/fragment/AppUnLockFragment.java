@@ -1,6 +1,5 @@
 package cn.edu.gdmec.android.mobileguard.m9advancedtools.fragment;
 
-import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;

@@ -3,8 +3,6 @@ package cn.edu.gdmec.android.mobileguard.m8trafficmonitor;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,8 +19,6 @@ import android.telephony.SmsMessage;
 import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -219,7 +215,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
                         beyond = getStringTofloat(beyondflow);
                     }
                 }
-                Editor edit = mSP.edit();
+                SharedPreferences.Editor edit = mSP.edit();
 //                M8
                 System.out.println ("-----"+left);
 

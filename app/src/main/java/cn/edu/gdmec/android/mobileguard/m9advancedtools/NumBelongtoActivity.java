@@ -2,17 +2,13 @@ package cn.edu.gdmec.android.mobileguard.m9advancedtools;
 
 
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -119,7 +115,6 @@ public class NumBelongtoActivity extends AppCompatActivity implements View.OnCli
                         Log.i("NumBelongtoActivity","数据库已存在");
                         return ;
                     }
-                    /*InputStream is = getAssets().open(dbname);*/
                     InputStream is = getAssets ().open ( dbname );
                     FileOutputStream fos  = openFileOutput(dbname, MODE_PRIVATE);
                     byte[] buffer = new byte[1024];

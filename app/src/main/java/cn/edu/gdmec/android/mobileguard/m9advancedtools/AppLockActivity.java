@@ -3,15 +3,11 @@ package cn.edu.gdmec.android.mobileguard.m9advancedtools;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,6 +35,21 @@ public class AppLockActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_app_lock);
         initView();
         initListener();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imgv_leftbtn:
+                finish();
+                break;
+            case R.id.tv_lock:
+                mAppViewPager.setCurrentItem(1);
+                break;
+            case R.id.tv_unlock:
+                mAppViewPager.setCurrentItem(0);
+                break;
+        }
     }
 
     private void initListener() {
@@ -93,22 +104,6 @@ public class AppLockActivity extends AppCompatActivity implements View.OnClickLi
         mFragments.add(unLock);
         mFragments.add(lock);
         mAppViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.imgv_leftbtn:
-                finish();
-                break;
-            case R.id.tv_lock:
-                mAppViewPager.setCurrentItem(1);
-                break;
-            case R.id.tv_unlock:
-                mAppViewPager.setCurrentItem(0);
-                break;
-        }
 
     }
 
