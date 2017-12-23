@@ -14,6 +14,7 @@ import cn.edu.gdmec.android.mobileguard.m1home.utils.MyUtils;
 import cn.edu.gdmec.android.mobileguard.m1home.utils.VersionUpdateUtils;
 
 public class SplashActivity extends AppCompatActivity {
+
     private TextView mTvVersion;
     private  String mVersion;
     private static final int MY_PERMISSIONS_REQUEST_PACKAGE_STATS=1101;
