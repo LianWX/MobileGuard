@@ -32,7 +32,7 @@ public class NumBelongtoDao {
             }
             cursor.close();
         } else {// 其他电话
-            switch (phonenumber.length()) {// 判断电话号码的长度
+            switch (phonenumber.length()) {
                 case 3: // 110 120 119 121 999
                     if ("110".equals(phonenumber)) {
                         location = "匪警";
