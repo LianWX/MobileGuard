@@ -55,6 +55,7 @@ public class SplashActivity extends AppCompatActivity {
         return mode==AppOpsManager.MODE_ALLOWED;
     }
 
+
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data){
         if (requestCode==MY_PERMISSIONS_REQUEST_PACKAGE_STATS){
