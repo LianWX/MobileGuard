@@ -8,7 +8,6 @@ import android.text.TextUtils;
 
 
 public class NumBelongtoDao {
-
     public static String getLocation(Context context,String phonenumber) {
 
         String location = phonenumber;
