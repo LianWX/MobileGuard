@@ -44,6 +44,7 @@ public class SplashActivity extends AppCompatActivity {
             }
        }.start();
     }
+
     private boolean hasPermission(){
         AppOpsManager appOps=(AppOpsManager) getSystemService(Context.APP_OPS_SERVICE);
         int mode=0;
