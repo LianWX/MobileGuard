@@ -35,6 +35,7 @@ public class SplashActivity extends AppCompatActivity {
                 MyUtils.installApk(SplashActivity.this,filename);
             }
         };
+
         final VersionUpdateUtils versionUpdateUtils = new VersionUpdateUtils(mVersion,SplashActivity.this,downloadCallback,HomeActivity.class);
         new Thread(){
             @Override
