@@ -1,6 +1,5 @@
 package cn.edu.gdmec.android.mobileguard.m9advancedtools.adapter;
 
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,10 +57,10 @@ public class AppLockAdapter extends BaseAdapter {
         holder.mAppIconImgv.setImageDrawable(appInfo.icon);
         holder.mAppNameTV.setText(appInfo.appName);
         if(appInfo.isLock){
-            //表示当前应用已经加锁
+
             holder.mLockIcon.setBackgroundResource(R.drawable.applock_icon);
         }else{
-            //当前应用未加锁
+
             holder.mLockIcon.setBackgroundResource(R.drawable.appunlock_icon);
         }
         return view;
@@ -69,8 +68,7 @@ public class AppLockAdapter extends BaseAdapter {
     static class ViewHolder{
         TextView mAppNameTV;
         ImageView mAppIconImgv;
-        /**控制图片显示加锁还是不加锁*/
+
         ImageView mLockIcon;
     }
 }
-

@@ -13,8 +13,6 @@ import java.util.Date;
 
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.db.dao.TrafficDao;
 
-
-
 public class TrafficMonitoringService extends Service {
     private long mOldRxBytes;
     private long mOldTxBytes;
@@ -35,6 +33,7 @@ public class TrafficMonitoringService extends Service {
     public IBinder onBind(Intent intent) {
         return binder;
     }
+
     public long getUsedFlow(){
         return usedFlow;
     }
@@ -61,31 +60,26 @@ public class TrafficMonitoringService extends Service {
             }
         }
         private void updateTodayGPRS() {
-            // 获取已经使用了的流量
             usedFlow = mSp.getLong("usedflow", 0);
             Date date = new Date();
-
-            Calendar calendar = Calendar.getInstance(); // 得到日历
-
-            calendar.setTime(date);// 把当前时间赋给日历
-
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
             if (calendar.DAY_OF_MONTH == 1 & calendar.HOUR_OF_DAY == 0
                     & calendar.MINUTE < 1 & calendar.SECOND < 30) {
                 usedFlow = 0;
             }
-            SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String dataString = sdf.format(date);
             long moblieGPRS = dao.getMoblieGPRS(dataString);
             long mobileRxBytes = TrafficStats.getMobileRxBytes();
             long mobileTxBytes = TrafficStats.getMobileTxBytes();
 
-            // 新产生的流量
             long newGprs = (mobileRxBytes + mobileTxBytes) - mOldRxBytes
                     - mOldTxBytes;
             mOldRxBytes = mobileRxBytes;
             mOldTxBytes = mobileTxBytes;
             if (newGprs < 0) {
-                // 网络切换过
+
                 newGprs = mobileRxBytes + mobileTxBytes;
             }
             if (moblieGPRS == -1) {
@@ -113,4 +107,3 @@ public class TrafficMonitoringService extends Service {
         super.onDestroy();
     }
 }
-

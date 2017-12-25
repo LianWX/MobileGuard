@@ -1,8 +1,5 @@
 package cn.edu.gdmec.android.mobileguard.m8trafficmonitor;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,9 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.text.TextUtils;
@@ -23,15 +20,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.db.dao.TrafficDao;
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.service.TrafficMonitoringService;
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.utils.SystemInfoUtils;
 
-
-
-public class TrafficMonitoringActivity extends AppCompatActivity implements
-        View.OnClickListener {
+public class TrafficMonitoringActivity extends AppCompatActivity implements View.OnClickListener {
     private SharedPreferences mSP;
     private Button mCorrectFlowBtn;
     private TextView mTotalTV;
@@ -62,13 +59,11 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_traffic_monitor);
+        setContentView(R.layout.activity_triffic_monitor);
         mSP = getSharedPreferences("config", MODE_PRIVATE);
         boolean flag = mSP.getBoolean("isset_operator", false);
-        // 如果没有设置运营商信息则进入信息设置页面
         if (!flag) {
-            startActivity(new Intent(this, OperatorSetActivity.class));
+            startActivity(new Intent(this, OpenratorSetActivity.class));
             finish();
         }
         if (!SystemInfoUtils
@@ -76,12 +71,13 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
                         "cn.edu.gdmec.android.mobileguard.m8trafficmonitor.service.TrafficMonitoringService")) {
             startService(new Intent(this, TrafficMonitoringService.class));
         }
+
         bindService(new Intent(this, TrafficMonitoringService.class),conn,BIND_AUTO_CREATE);
+
         initView();
         registReceiver();
         initData();
     }
-
     private void initView() {
         findViewById(R.id.rl_titlebar).setBackgroundColor(
                 getResources().getColor(R.color.light_green));
@@ -89,13 +85,11 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
         ((TextView) findViewById(R.id.tv_title)).setText("流量监控");
         mLeftImgv.setOnClickListener(this);
         mLeftImgv.setImageResource(R.drawable.back);
-        ImageView mRightImgv = (ImageView ) findViewById ( R.id.imgv_rightbtn );
-        mRightImgv.setImageResource (R.drawable.processmanager_setting_icon);
-        mRightImgv.setOnClickListener ( this );
-
+        ImageView mRightImgv = (ImageView) findViewById(R.id.imgv_rightbtn);
+        mRightImgv.setImageResource(R.drawable.processmanager_setting_icon);
+        mRightImgv.setOnClickListener(this);
         mCorrectFlowBtn = (Button) findViewById(R.id.btn_correction_flow);
         mCorrectFlowBtn.setOnClickListener(this);
-
         mTotalTV = (TextView) findViewById(R.id.tv_month_totalgprs);
         mUsedTV = (TextView) findViewById(R.id.tv_month_usedgprs);
         mToDayTV = (TextView) findViewById(R.id.tv_today_gprs);
@@ -118,7 +112,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
         }
         mTotalTV.setText("本月流量：" + Formatter.formatFileSize(this, totalflow));
         mUsedTV.setText("本月已用：" + Formatter.formatFileSize(this, usedflow));
-        dao = new TrafficDao (this);
+        dao = new TrafficDao(this);
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dataString = sdf.format(date);
@@ -142,35 +136,26 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
             case R.id.imgv_leftbtn:
                 finish();
                 break;
-
-            //m8xin
             case R.id.imgv_rightbtn:
-                startActivity ( new Intent ( this,OperatorSetActivity.class ) );
+                startActivity(new Intent(this,OpenratorSetActivity.class));
                 break;
-
             case R.id.btn_correction_flow:
-                // 首先判断是哪个运营商，
                 int i = mSP.getInt("operator", 0);
                 SmsManager smsManager = SmsManager.getDefault();
                 switch (i) {
                     case 0:
-                        // 没有设置运营商
-                        Toast.makeText(this, "您还没有设置运营商信息", 0).show();
+                        Toast.makeText(this, "您还没有设置运营商信息",0).show();
                         break;
                     case 1:
-                        // 中国移动
-                        // 发送cxll至10086
-                        // 获取系统默认的短信管理器
+
                         smsManager.sendTextMessage("10086", null, "CXLL", null, null);
                         break;
                     case 2:
-                        // 中国联通
-                        // 发送cxll至10010
-                        // 获取系统默认的短信管理器
+
                         smsManager.sendTextMessage("10010", null, "CXLL", null, null);
                         break;
                     case 3:
-                        // 中国电信
+
                         break;
                 }
         }
@@ -189,18 +174,16 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
                     return;
                 }
                 String[] split = body.split("，");
+                System.out.println(split[0]);
 
-//                m8
-                System.out.println (split[0]);
-                // 本月剩余流量
                 long left = 0;
-                // 本月已用流量
+
                 long used = 0;
-                // 本月超出流量
+
                 long beyond = 0;
                 for (int i = 0; i < split.length; i++) {
                     if (split[i].contains("当月常用流量已用")) {
-                        // 套餐总量
+
                         String usedflow = split[i].substring(9,
                                 split[i].length());
                         used = getStringTofloat(usedflow);
@@ -215,9 +198,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
                     }
                 }
                 SharedPreferences.Editor edit = mSP.edit();
-//                M8
-                System.out.println ("-----"+left);
-
+                System.out.println("-----"+left);
                 edit.putLong("totalflow", used + left);
                 edit.putLong("usedflow", used + beyond);
                 edit.commit();
@@ -229,7 +210,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
         }
     }
 
-    /** 将字符串转化成Float类型数据 **/
+
     private long getStringTofloat(String str) {
         long flow = 0;
         if (!TextUtils.isEmpty(str)) {
@@ -260,4 +241,3 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements
         unbindService(conn);
     }
 }
-

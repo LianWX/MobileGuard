@@ -1,7 +1,5 @@
 package cn.edu.gdmec.android.mobileguard.m9advancedtools;
 
-
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -21,9 +19,7 @@ import cn.edu.gdmec.android.mobileguard.App;
 import cn.edu.gdmec.android.mobileguard.R;
 import cn.edu.gdmec.android.mobileguard.m2theftguard.utils.MD5Utils;
 
-
 public class EnterPswActivity extends AppCompatActivity implements View.OnClickListener{
-
     private ImageView mAppIcon;
     private TextView mAppNameTV;
     private EditText mPswET;
@@ -36,8 +32,7 @@ public class EnterPswActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView( R.layout.activity_enter_psw);
+        setContentView(R.layout.activity_enter_psw);
         sp = getSharedPreferences("config", MODE_PRIVATE);
         password = sp.getString("PhoneAntiTheftPWD", null);
         Intent intent = getIntent();
@@ -51,10 +46,6 @@ public class EnterPswActivity extends AppCompatActivity implements View.OnClickL
             e.printStackTrace();
         }
     }
-
-    /**
-     * 初始化控件
-     */
     private void initView() {
         mAppIcon = (ImageView) findViewById(R.id.imgv_appicon_enterpsw);
         mAppNameTV = (TextView) findViewById(R.id.tv_appname_enterpsw);
@@ -65,20 +56,19 @@ public class EnterPswActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.imgv_go_enterpsw:
-                //比较密码
+
                 String inputpsw = mPswET.getText().toString().trim();
                 if(TextUtils.isEmpty(inputpsw)){
                     startAnim();
-                    //将0改为Toast.LENGTH_LONG
                     Toast.makeText(this, "请输入密码！", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
                     if(!TextUtils.isEmpty(password)){
                         if(MD5Utils.encode(inputpsw).equals(password)){
-                            //发送自定义的广播消息。
+
                             Intent intent = new Intent();
                             intent.setAction(App.APPLOCK_ACTION);
                             intent.putExtra("packagename",packagename);
@@ -94,10 +84,8 @@ public class EnterPswActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
-
     private void startAnim() {
-        Animation animation =AnimationUtils.loadAnimation(this, R.anim.shake);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
         mEnterPswLL.startAnimation(animation);
     }
-
 }

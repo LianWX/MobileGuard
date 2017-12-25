@@ -41,7 +41,7 @@ public class AppLockFragment extends Fragment {
     private AppLockAdapter adapter;
     private Uri uri = Uri.parse(App.APPLOCK_CONTENT_URI);
     private Handler mHandler = new Handler(){
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 10:
                     mLockApps.clear();
@@ -76,12 +76,12 @@ public class AppLockFragment extends Fragment {
         mLockCB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                //Intent intent = new Intent(context, AppLockService.class);
+
                 final Intent intent = new Intent();
                 ComponentName componentName = new ComponentName("cn.edu.gdmec.android.mobileguard"
                         ,"cn.edu.gdmec.android.mobileguard.m9advancedtools.service.AppLockService");
                 intent.setComponent(componentName);
-                //intent.setAction("cn.edu.gdmec.android.mobileguard.m9advancedtools.m9advancedtools.service.AppLockService");
+
 
                 if (b){
                     context.startService(intent);
@@ -117,7 +117,7 @@ public class AppLockFragment extends Fragment {
             public void run() {
                 for (AppInfo appInfo : appInfos) {
                     if(dao.find(appInfo.packageName)){
-                        //已加锁
+
                         appInfo.isLock = true;
                         aInfos.add(appInfo);
                     }
@@ -134,7 +134,7 @@ public class AppLockFragment extends Fragment {
         mLockLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                //播放一个动画效果
+
                 TranslateAnimation ta = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0,
                         Animation.RELATIVE_TO_SELF, -1.0f, Animation.RELATIVE_TO_SELF, 0,
                         Animation.RELATIVE_TO_SELF, 0);
@@ -150,9 +150,9 @@ public class AppLockFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                //删除数据库的包名
+
                                 dao.delete(mLockApps.get(i).packageName);
-                                //更新界面
+
                                 mLockApps.remove(i);
                                 adapter.notifyDataSetChanged();
                             }
@@ -163,4 +163,3 @@ public class AppLockFragment extends Fragment {
         });
     }
 }
-
