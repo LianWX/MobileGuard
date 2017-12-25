@@ -39,6 +39,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements View
     private TextView mRemindTV;
     private CorrectFlowReceiver receiver;
 
+    //绑定服务
     private TrafficMonitoringService trafficMonitoringService =null;
     private boolean isBound;
     private ServiceConnection conn = new ServiceConnection() {
@@ -59,11 +60,12 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_triffic_monitor);
+        setContentView(R.layout.activity_traffic_monitor);
         mSP = getSharedPreferences("config", MODE_PRIVATE);
         boolean flag = mSP.getBoolean("isset_operator", false);
+        // 如果没有设置运营商信息则进入信息设置页面
         if (!flag) {
-            startActivity(new Intent(this, OpenratorSetActivity.class));
+            startActivity(new Intent(this, OperatorSetActivity.class));
             finish();
         }
         if (!SystemInfoUtils
@@ -72,6 +74,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements View
             startService(new Intent(this, TrafficMonitoringService.class));
         }
 
+        //绑定服务
         bindService(new Intent(this, TrafficMonitoringService.class),conn,BIND_AUTO_CREATE);
 
         initView();
@@ -137,29 +140,34 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements View
                 finish();
                 break;
             case R.id.imgv_rightbtn:
-                startActivity(new Intent(this,OpenratorSetActivity.class));
+                startActivity(new Intent(this,OperatorSetActivity.class));
                 break;
             case R.id.btn_correction_flow:
+                // 首先判断是哪个运营商，
                 int i = mSP.getInt("operator", 0);
                 SmsManager smsManager = SmsManager.getDefault();
                 switch (i) {
                     case 0:
-                        Toast.makeText(this, "您还没有设置运营商信息",0).show();
+                        // 没有设置运营商
+                        Toast.makeText(this, "您还没有设置运营商信息", 0).show();
                         break;
                     case 1:
-
+                        // 中国移动
+                        // 发送cxll至10086
+                        // 获取系统默认的短信管理器
                         smsManager.sendTextMessage("10086", null, "CXLL", null, null);
                         break;
-                    case 2:
-
+                   case 2:
+                        // 中国联通
                         smsManager.sendTextMessage("10010", null, "CXLL", null, null);
                         break;
                     case 3:
-
+                        // 中国电信
                         break;
                 }
         }
     }
+
 
     class CorrectFlowReceiver extends BroadcastReceiver {
         @Override
@@ -175,15 +183,15 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements View
                 }
                 String[] split = body.split("，");
                 System.out.println(split[0]);
-
+                // 本月剩余流量
                 long left = 0;
-
+                // 本月已用流量
                 long used = 0;
-
+                // 本月超出流量
                 long beyond = 0;
                 for (int i = 0; i < split.length; i++) {
                     if (split[i].contains("当月常用流量已用")) {
-
+                        // 套餐总量
                         String usedflow = split[i].substring(9,
                                 split[i].length());
                         used = getStringTofloat(usedflow);
@@ -210,7 +218,7 @@ public class TrafficMonitoringActivity extends AppCompatActivity implements View
         }
     }
 
-
+    /** 将字符串转化成Float类型数据 **/
     private long getStringTofloat(String str) {
         long flow = 0;
         if (!TextUtils.isEmpty(str)) {

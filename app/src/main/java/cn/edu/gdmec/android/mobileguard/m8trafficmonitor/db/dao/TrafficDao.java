@@ -12,7 +12,6 @@ import java.util.Date;
 
 import cn.edu.gdmec.android.mobileguard.m8trafficmonitor.db.TrafficOpenHelper;
 
-
 public class TrafficDao {
     private TrafficOpenHelper helper;
 
@@ -20,7 +19,12 @@ public class TrafficDao {
         helper = new TrafficOpenHelper(context);
     }
 
-
+    /**
+     * 获取某一天用的流量
+     *
+     * @param dataString
+     * @return
+     */
     public long getMoblieGPRS(String dataString) {
         SQLiteDatabase db = helper.getReadableDatabase();
         long gprs = 0;
@@ -36,26 +40,29 @@ public class TrafficDao {
         return gprs;
     }
 
-
+    /***
+     * 添加今天的
+     *
+     * @param gprs
+     */
     public void insertTodayGPRS(long gprs) {
         SQLiteDatabase db = helper.getReadableDatabase();
         Date dNow = new Date();
-
-        Calendar calendar = Calendar.getInstance();
-
-
-        calendar.setTime(dNow);
-
-
+        Calendar calendar = Calendar.getInstance(); // 得到日历
+        calendar.setTime(dNow);// 把当前时间赋给日历
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dataString = sdf.format(dNow);
-        ContentValues values = new ContentValues ();
+        ContentValues values = new ContentValues();
         values.put("gprs", String.valueOf(gprs));
         values.put("date", "datetime(" + dataString + ")");
         db.insert("traffic", null, values);
     }
 
-
+    /***
+     * 修改今天的
+     *
+     * @param gprs
+     */
     public void UpdateTodayGPRS(long gprs) {
         SQLiteDatabase db = helper.getWritableDatabase();
         Date date = new Date();
@@ -68,24 +75,3 @@ public class TrafficDao {
                 + dataString + ")" });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
